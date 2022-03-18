@@ -67,6 +67,18 @@
       // de contatos para View 
       function listarContato()
       {
- 
+        require_once("model/bd/contato.php");
+
+        // chama a função que vai buscar os dados no BD
+        $dados = selectAllContato();
+
+        if(!empty($dados))
+        {
+            return $dados;
+        }else
+        {
+            return false;
+        }
+
       }    
 ?>

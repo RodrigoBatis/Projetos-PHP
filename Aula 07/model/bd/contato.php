@@ -59,6 +59,33 @@
     // função para listar todos os contatos do BD
     function selectAllContato()
     {
+        // Abre a conexao com o banco
+        $conexao = conexaoMysql();
+
+        // script para listar todos os dados do BD
+        $sql = "select * from dblcontatos";
+        // essa linha executa o script no BD e garda o retorno dos dados 
+        $result = mysqli_query($conexao, $sql);
+        //valida se o BD retornou registros
+        if($result)
+        {
+            //mysqli_fetch_assoc() - permite converter os dados do BD
+            //em um array para manipular no PHP
+            //Nesta repetição estamos, convertendo os dados do BD em um array ($result), além de
+            //o proprio while conseguir gerenciar a qtde de vezes que deverá ser feita a repetição
+            while($rsDados = mysqli_fetch_assoc($result))
+            {
+                $arrayDados = array(
+                    "nome"      => $rsDados["nome"],
+                    "telefone"  => $rsDados["telefone"],
+                    "celular"   => $rsDados["celular"],
+                    "email"     => $rsDados["email"],
+                    "obs"       => $rsDados["obs"],
+                );
+            }   
+            
+            return $arrayDados;
+        }
 
     }
 

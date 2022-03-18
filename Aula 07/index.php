@@ -82,11 +82,18 @@
                     <td class="tblColunas destaque"> Opções </td>
                 </tr>
                 
+               <?php
+                    require_once("Controller/controllerContatos.php");
+                    $listContato = listarContato();
+                    foreach($listContato as $item){
+
+                    
                
+               ?>
                 <tr id="tblLinhas">
-                    <td class="tblColunas registros"></td>
-                    <td class="tblColunas registros"></td>
-                    <td class="tblColunas registros"></td>
+                    <td class="tblColunas registros"><?=$item["nome"]?></td>
+                    <td class="tblColunas registros"><?=$item["celular"]?></td>
+                    <td class="tblColunas registros"><?=$item["email"]?></td>
                    
                     <td class="tblColunas registros">
                             <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
@@ -94,6 +101,10 @@
                             <img src="img/search.png" alt="Visualizar" title="Visualizar" class="pesquisar">
                     </td>
                 </tr>
+
+                <?php
+                 }
+                ?>
             </table>
         </div>
     </body>
