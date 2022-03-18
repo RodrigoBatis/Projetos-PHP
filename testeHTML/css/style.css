@@ -1,0 +1,87 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+
+
+header{
+    width: 100%;
+    height: 300px;
+    background-color: rgb(17, 39, 32);
+    padding-top: 50px;
+}
+
+#mensagem{
+    width: 500px;
+    height: 150px;
+    margin: auto;
+    background-color: brown;
+}
+
+#produtos{
+    width: 100%;
+    min-height: 800px;
+    background-color: bisque;
+}
+
+.cardProdutos{
+    width: 350px;
+    height: 450px;
+    background-color: beige;
+    float: left;
+    margin-right: 83px;
+    margin-bottom: 83px;
+
+}
+
+footer{
+    width: 100%;
+    height: 200px;
+    background-color: black;
+}
+
+@media screen and (min-device-width:1400px) {
+    .container{
+        width: 1400px;
+        background-color: brown;
+        min-height: 100px;
+        height: auto; 
+        overflow: hidden;
+        margin: auto;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+}
+
+@media screen and (max-device-width:1000px) {
+    .container{
+        width: 100%;
+        background-color: coral;
+        min-height: 100px;
+        height: auto; 
+        overflow: hidden;
+        margin: auto;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 50px;
+        padding-right: 50px;
+
+    
+    }
+
+    .cardProdutos{
+        width: 350px;
+        height: 450px;
+        background-color: beige;
+        float: left;
+        margin-right: 20px;
+        margin-bottom: 83px;
+    
+    }
+
+
+}
