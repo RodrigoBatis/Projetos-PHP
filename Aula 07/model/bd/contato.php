@@ -73,15 +73,17 @@
             //em um array para manipular no PHP
             //Nesta repetição estamos, convertendo os dados do BD em um array ($result), além de
             //o proprio while conseguir gerenciar a qtde de vezes que deverá ser feita a repetição
+            $cont =0;
             while($rsDados = mysqli_fetch_assoc($result))
             {
-                $arrayDados = array(
+                $arrayDados[$cont] = array(
                     "nome"      => $rsDados["nome"],
                     "telefone"  => $rsDados["telefone"],
                     "celular"   => $rsDados["celular"],
                     "email"     => $rsDados["email"],
                     "obs"       => $rsDados["obs"],
                 );
+                $cont++;
             }   
             
             return $arrayDados;
