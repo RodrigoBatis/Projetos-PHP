@@ -39,23 +39,21 @@
         {
             // Validação para verificar se uma linha foi acrescentada no BD 
             if(mysqli_affected_rows($conexao)){
-                return true;
+                $statusResultado = true;
             }else{
-                return false;
+                $statusResultado = false;
             }
            
         }else{
-            return false;
+            $statusResultado = false;
         }
 
-    }
-
-    // função para realizar o update no BD
-    function updateContato()
-    {
+        fecharConexaoMysql($conexao);
+        return $statusResultado;
 
     }
 
+    
     // função para listar todos os contatos do BD
     function selectAllContato()
     {
@@ -63,7 +61,7 @@
         $conexao = conexaoMysql();
 
         // script para listar todos os dados do BD
-        $sql = "select * from dblcontatos";
+        $sql = "select * from tblcontatos order by idcontato desc";
         // essa linha executa o script no BD e garda o retorno dos dados 
         $result = mysqli_query($conexao, $sql);
         //valida se o BD retornou registros
@@ -77,6 +75,7 @@
             while($rsDados = mysqli_fetch_assoc($result))
             {
                 $arrayDados[$cont] = array(
+                    "id"        => $rsDados["idcontato"],
                     "nome"      => $rsDados["nome"],
                     "telefone"  => $rsDados["telefone"],
                     "celular"   => $rsDados["celular"],
@@ -86,14 +85,42 @@
                 $cont++;
             }   
             
+            // solicita o fechamento da conexão com o BD
+            fecharConexaoMysql($conexao);
+
             return $arrayDados;
         }
 
     }
 
     // função para realizar o delete no BD
-    function deleteContato()
+    function deleteContato($id)
+    {
+        // abre a conexão como BD
+        $conexao = conexaoMysql();
+
+        $sql = "delete from tblcontatos where idcontato =".$id;
+
+       if(mysqli_query($conexao, $sql)){
+            if(mysqli_affected_rows($conexao)){
+                $statusResultado = true;
+            }else{
+                $statusResultado = false;
+            }
+
+        }else{
+            $statusResultado = false;
+        }
+
+        fecharConexaoMysql($conexao);
+        return $statusResultado;
+    }
+
+
+    // função para realizar o update no BD
+    function updateContato()
     {
 
     }
+
 ?>
