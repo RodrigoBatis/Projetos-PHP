@@ -68,7 +68,18 @@
 
             $dados = selectByidContato($id);
 
+            if(!empty($dados))
+            {
+                return $dados;
+            }else
+            {
+                return false;
+            }
 
+        }else
+        {
+            return array('idErro' => 4,
+                         'message' => "Não é possivel buscar um registro sem informar um id valido.");
         }
      }
 

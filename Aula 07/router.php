@@ -87,7 +87,26 @@
                     $idContato = $_GET["id"];
 
                     // chama a função de buscar na controller
-                    $resposta = buscarContato($idContato);
+                    $dados = buscarContato($idContato);
+ 
+                    // ***    IMPORTANTE    ***
+                    // Ativa a utilização de variavel de sessão no servidor 
+                    session_start();
+
+                    // Guarda em uma variavel de sessão os dados que o banco de 
+                    //dados retornou para a busca do id.
+                        //Obs: (Essa variavel de sessão será utilizada na index.php, 
+                        //para colocar os dados nas caixas de texto).
+                    $_SESSION["dadosContato"] = $dados;
+
+                    // utilizando o header tambem poderemos chamar a index.php
+                    //porem haverá uma ação de carregamento no navegador
+                    //piscando a tela novamento
+                    // header("location.index.php");
+
+                    // utilizando o require iremos apenas importar a tela da index,
+                    //assim não havera um novo carregamento da pagina;
+                    require_once("index.php");
                 }
             
                 break;

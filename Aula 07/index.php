@@ -1,3 +1,20 @@
+<?php
+
+    // valida se a variavel de sessão está ativa
+    if(session_status())
+    {
+        if(!empty($_SESSION["dadosContato"]))
+        {
+            $id         = $_SESSION["dadosContato"]["id"];
+            $nome       = $_SESSION["dadosContato"]["nome"];
+            $telefone   = $_SESSION["dadosContato"]["telefone"];
+            $celular    = $_SESSION["dadosContato"]["celular"];
+            $email      = $_SESSION["dadosContato"]["email"];
+            $obs        = $_SESSION["dadosContato"]["obs"];
+        }
+    }    
+
+?>
 <!DOCTYPE>
 <html lang="pt-br">
     <head>
@@ -22,7 +39,7 @@
                             <label> Nome: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <input type="text" name="txtNome" value="" placeholder="Digite seu Nome" maxlength="100">
+                            <input type="text" name="txtNome" value="<?php empty($nome) ? "" : $nome ?>" placeholder="Digite seu Nome" maxlength="100">
                         </div>
                     </div>
                                      
@@ -31,7 +48,7 @@
                             <label> Telefone: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <input type="tel" name="txtTelefone" value="">
+                            <input type="tel" name="txtTelefone" value="<?php empty($telefone) ? "" : $telefone ?>">
                         </div>
                     </div>
                     <div class="campos">
@@ -39,7 +56,7 @@
                             <label> Celular: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <input type="tel" name="txtCelular" value="">
+                            <input type="tel" name="txtCelular" value="<?php empty($celular) ? "" : $celular ?>">
                         </div>
                     </div>
                    
@@ -49,7 +66,7 @@
                             <label> Email: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <input type="email" name="txtEmail" value="">
+                            <input type="email" name="txtEmail" value="<?php empty($email) ? "" : $email ?>">
                         </div>
                     </div>
                     <div class="campos">
@@ -57,7 +74,7 @@
                             <label> Observações: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <textarea name="txtObs" cols="50" rows="7"></textarea>
+                            <textarea name="txtObs" cols="50" rows="7"><?php empty($obs) ? "" : $obs ?></textarea>
                         </div>
                     </div>
                     <div class="enviar">
@@ -97,7 +114,7 @@
                    
                     <td class="tblColunas registros">
 
-                            <a href="router.php?componente=cotatos&action=buscar&id=<?=$item['id']?>">
+                            <a href="router.php?component=contatos&action=buscar&id=<?=$item['id']?>">
                                 <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
                             </a>
 
