@@ -60,6 +60,7 @@
                     //do excluir que foi acionado na index
                     $idContato = $_GET["id"];
 
+                    // chama a função de excluir na controller
                     $resposta = excluirContato($idContato);
 
                     if(is_bool($resposta))
@@ -78,6 +79,15 @@
                                 window.history.back(); 
                             </script>");
                     }
+                }elseif($action == "BUSCAR")
+                {
+                    // recebe o id do registro que deve ser editado,
+                    // que foi enviado pela URL no link da imagem 
+                    //do editar que foi acionado na index
+                    $idContato = $_GET["id"];
+
+                    // chama a função de buscar na controller
+                    $resposta = buscarContato($idContato);
                 }
             
                 break;

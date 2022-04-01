@@ -96,10 +96,15 @@
                     <td class="tblColunas registros"><?= $item['email']?></td>
                    
                     <td class="tblColunas registros">
-                            <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
-                            <a href= "router.php?component=contatos&action=deletar&id=<?=$item['id']?>">
-                            <img src="img/trash.png" alt="Excluir" title="Excluir" class="excluir">
+
+                            <a href="router.php?componente=cotatos&action=buscar&id=<?=$item['id']?>">
+                                <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
                             </a>
+
+                            <a onclick="return confirm('Tem certeza que quer excluir esse contato?')" href= "router.php?component=contatos&action=deletar&id=<?=$item['id']?>">
+                                <img src="img/trash.png" alt="Excluir" title="Excluir" class="excluir">
+                            </a>
+
                             <img src="img/search.png" alt="Visualizar" title="Visualizar" class="pesquisar">
                     </td>
                 </tr>

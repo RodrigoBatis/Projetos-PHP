@@ -57,6 +57,21 @@
      
      }
 
+     // função para buscar um contato atravez do id do registro
+     function buscarContato($id)
+     {
+        // Validação para verificar se contem um numero valido 
+        if($id != 0 &&  !empty($id) && is_numeric($id))
+        {
+            // Importe do arquivo de contato
+            require_once("model/bd/contato.php");
+
+            $dados = selectByidContato($id);
+
+
+        }
+     }
+
      // função para realizar a exclusão de um contato 
      function excluirContato($id)
      {

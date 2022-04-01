@@ -99,6 +99,7 @@
         // abre a conexão como BD
         $conexao = conexaoMysql();
 
+        
         $sql = "delete from tblcontatos where idcontato =".$id;
 
        if(mysqli_query($conexao, $sql)){
@@ -121,6 +122,45 @@
     function updateContato()
     {
 
+    }
+
+    //fução para buscar um contato no BD atravez do id do registro
+    function selectByidContato($id)
+    {
+        // Abre a conexao com o banco
+        $conexao = conexaoMysql();
+
+        // script para listar todos os dados do BD
+        $sql = "select * from tblcontatos where idcontato = ".$id;
+
+        // essa linha executa o script no BD e garda o retorno dos dados 
+        $result = mysqli_query($conexao, $sql);
+
+        //valida se o BD retornou registros
+        if($result)
+        {
+            //mysqli_fetch_assoc() - permite converter os dados do BD
+            //em um array para manipular no PHP
+            //Nesta repetição estamos, convertendo os dados do BD em um array ($result), além de
+            //o proprio while conseguir gerenciar a qtde de vezes que deverá ser feita a repetição
+            
+            if($rsDados = mysqli_fetch_assoc($result))
+            {
+                $arrayDados = array(
+                    "id"        => $rsDados["idcontato"],
+                    "nome"      => $rsDados["nome"],
+                    "telefone"  => $rsDados["telefone"],
+                    "celular"   => $rsDados["celular"],
+                    "email"     => $rsDados["email"],
+                    "obs"       => $rsDados["obs"],
+                );
+            }   
+            
+            // solicita o fechamento da conexão com o BD
+            fecharConexaoMysql($conexao);
+
+            return $arrayDados;
+        }
     }
 
 ?>
