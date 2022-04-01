@@ -39,7 +39,7 @@
                             <label> Nome: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <input type="text" name="txtNome" value="<?php empty($nome) ? "" : $nome ?>" placeholder="Digite seu Nome" maxlength="100">
+                            <input type="text" name="txtNome" value="<?=$nome ?>" placeholder="Digite seu Nome" maxlength="100">
                         </div>
                     </div>
                                      
@@ -48,7 +48,7 @@
                             <label> Telefone: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <input type="tel" name="txtTelefone" value="<?php empty($telefone) ? "" : $telefone ?>">
+                            <input type="tel" name="txtTelefone" value="<?=$telefone ?>">
                         </div>
                     </div>
                     <div class="campos">
@@ -56,7 +56,7 @@
                             <label> Celular: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <input type="tel" name="txtCelular" value="<?php empty($celular) ? "" : $celular ?>">
+                            <input type="tel" name="txtCelular" value="<?=$celular ?>">
                         </div>
                     </div>
                    
@@ -66,7 +66,7 @@
                             <label> Email: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <input type="email" name="txtEmail" value="<?php empty($email) ? "" : $email ?>">
+                            <input type="email" name="txtEmail" value="<?=$email ?>">
                         </div>
                     </div>
                     <div class="campos">
@@ -74,7 +74,7 @@
                             <label> Observações: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <textarea name="txtObs" cols="50" rows="7"><?php empty($obs) ? "" : $obs ?></textarea>
+                            <textarea name="txtObs" cols="50" rows="7"><?=$obs ?></textarea>
                         </div>
                     </div>
                     <div class="enviar">
