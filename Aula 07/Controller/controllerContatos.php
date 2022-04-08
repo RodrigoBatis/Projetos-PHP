@@ -40,7 +40,7 @@
                 }else
                 {
                     return array("idErro" => 1, 
-                                "message" => "não foi possivel inserir od dados no Banco de Dados!!!");
+                                "message" => "não foi possivel inserir os dados no Banco de Dados!!!");
                 }
 
             }else
@@ -52,9 +52,54 @@
      }
 
     // função para receber dados da View encaminhar para a model  (Atualizar)
-    function atualizarContato()
+    function atualizarContato($dadosContato, $id)
      {
-     
+         // validação para verificar se o objeto está vazio
+         if(!empty($dadosContato))
+         {
+             //validação de caixa vazia dos lementos nome, celular e email pois são obrigatorios no banco de dados
+             if(!empty($dadosContato["txtNome"]) && !empty($dadosContato["txtCelular"]) && !empty($dadosContato["txtEmail"]))
+             {
+                 //validação para garantir que o id seja valido
+                 if(!empty($id) && $id != 0 && is_numeric($id))
+                {
+                    // criação do array de dados que será encaminhado da model 
+                    //para enserir no banco de dados, é importante criar esse 
+                    //array conforme a nescessidade de manipulação do BD.
+                    //OBS: criar as chaves do array conforme os nomes dos atributos do BD.
+                    $arrayDados = array 
+                    (
+                        "id"        => $id,   
+                        "nome"      => $dadosContato["txtNome"],
+                        "telefone"  => $dadosContato["txtTelefone"],
+                        "celular"   => $dadosContato["txtCelular"],
+                        "email"     => $dadosContato["txtEmail"],
+                        "obs"       => $dadosContato["txtObs"]
+                    );
+    
+                    // Import do arquivo da modelagem para manipular o BB
+                    require_once("./model/bd/contato.php");
+    
+                    // Chama a função que fará o insert no BD(esta função está na model)
+                    if(updateContato($arrayDados))
+                    {
+                        return true;
+                    }else
+                    {
+                        return array("idErro" => 1, 
+                                    "message" => "não foi possivel atualizar os dados no Banco de Dados!!!");
+                    }
+                }else
+                {
+                    return array('idErro' => 4,
+                    'message' => "Não é possivel editar o registro sem informar um id valido.");
+                }
+             }else
+             {
+                 return array("idErro" => 2,
+                             "message" => "existem campos obrigatorios que não foram preenchidos!!!");
+             }
+         }
      }
 
      // função para buscar um contato atravez do id do registro

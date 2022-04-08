@@ -119,9 +119,38 @@
 
 
     // função para realizar o update no BD
-    function updateContato()
+    function updateContato($dadosContato)
     {
+         // Abre a conexão com BD
+         $conexao = conexaoMysql();
 
+         // Monta do script para enviar para o BD
+         $sql = "update tblcontatos set
+             nome            = '".$dadosContato["nome"]     ."', 
+             telefone        = '".$dadosContato["telefone"] ."', 
+             celular         = '".$dadosContato["celular"]  ."', 
+             email           = '".$dadosContato["email"]    ."', 
+             obs             = '".$dadosContato["obs"]      ."'
+             where idContato =  ".$dadosContato["id"]       .";"
+         ;  
+         
+         //Executa o script no BD
+         //Validação para verificar se o script esta certo
+         if (mysqli_query($conexao, $sql))
+         {
+             // Validação para verificar se uma linha foi acrescentada no BD 
+             if(mysqli_affected_rows($conexao)){
+                 $statusResultado = true;
+             }else{
+                 $statusResultado = false;
+             }
+            
+         }else{
+             $statusResultado = false;
+         }
+ 
+         fecharConexaoMysql($conexao);
+         return $statusResultado;
     }
 
     //fução para buscar um contato no BD atravez do id do registro

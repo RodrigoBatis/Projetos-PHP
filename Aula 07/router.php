@@ -107,6 +107,28 @@
                     // utilizando o require iremos apenas importar a tela da index,
                     //assim não havera um novo carregamento da pagina;
                     require_once("index.php");
+                }elseif($action == "EDITAR")
+                {
+                    //recebe o id que foi encaminhado pelo url por via get
+                    $idContato = $_GET["id"];
+
+                     // chama a função de editar na acontroller
+                     $resposta = atualizarContato($_POST, $idContato);
+
+                     if(is_bool($resposta))
+                     {
+                         if($resposta){
+                             echo("<script>
+                                     alert('Registro Atualizado com sucesso');
+                                     window.location.href = 'index.php'; 
+                                 </script>");
+                         }
+                     }elseif(is_array($resposta)){
+                         echo("<script>
+                                 alert('".$resposta['message']."');
+                                 window.history.back(); 
+                             </script>");
+                     }
                 }
             
                 break;
