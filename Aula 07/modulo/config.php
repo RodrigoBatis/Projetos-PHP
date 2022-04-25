@@ -10,7 +10,7 @@
 //Limitador de 5m para upload de imagem
 const MAX_FILE_UPLOAD = 5120;
 //Limitador de extensões para upload de imagem 
-const EXT_FILE_UPLOAD = array(".jpg, .jpeg, .gif, .png");
+const EXT_FILE_UPLOAD = array("image/jpg, image/jpeg, image/gif, image/png");
 //Diretorio definitivo dos arquivos
 const DIRETORIO_FILE_UPLOAD = "arquivos/";
 

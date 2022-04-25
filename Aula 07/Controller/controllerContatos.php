@@ -9,7 +9,7 @@
      **************************************************************************/
 
      // função para receber dados da View encaminhar para a model 
-     function inserirContato($dadosContato)
+     function inserirContato($dadosContato, $file)
      {
          // validação para verificar se o objeto está vazio
         if(!empty($dadosContato))
@@ -17,10 +17,22 @@
             //validação de caixa vazia dos lementos nome, celular e email pois são obrigatorios no banco de dados
             if(!empty($dadosContato["txtNome"]) && !empty($dadosContato["txtCelular"]) && !empty($dadosContato["txtEmail"]))
             {
+
+                if($file != null)
+                {
+                    require_once("modulo/upload.php");
+                    $resultado = uploadFile($file["fleFoto"]);
+                    var_dump($resultado);
+                    die;
+                }
+
+
+
                 // criação do array de dados que será encaminhado da model 
                 //para enserir no banco de dados, é importante criar esse 
                 //array conforme a nescessidade de manipulação do BD.
                 //OBS: criar as chaves do array conforme os nomes dos atributos do BD.
+
                 $arrayDados = array 
                 (
                     "nome"      => $dadosContato["txtNome"],

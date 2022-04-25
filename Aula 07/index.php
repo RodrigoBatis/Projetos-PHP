@@ -86,7 +86,7 @@
                             <label> Escolha um Arquivo: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <input type="file" name="fleFoto" accept=".jpg, .png, .jpeg, .gif">
+                            <input type="file" name="fleFoto" accept="jpg, png, jpeg, gif">
                         </div>
                     </div>
 
