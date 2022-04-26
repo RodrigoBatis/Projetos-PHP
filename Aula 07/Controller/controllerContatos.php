@@ -11,17 +11,30 @@
      // função para receber dados da View encaminhar para a model 
      function inserirContato($dadosContato, $file)
      {
+         $nomeFoto = (String) null;
+
          // validação para verificar se o objeto está vazio
         if(!empty($dadosContato))
         {
             //validação de caixa vazia dos lementos nome, celular e email pois são obrigatorios no banco de dados
             if(!empty($dadosContato["txtNome"]) && !empty($dadosContato["txtCelular"]) && !empty($dadosContato["txtEmail"]))
             {
+                //validação para identificar se chegou um arquivo para upload
                 if($file != null){
+                    //import da funtion upload
                     require_once("modulo/upload.php");
-                    $resultado = uploadFile($file['fileFoto']);
-                    echo($resultado);
-                    die;
+                    //chava a funtion de upload
+                    $nomeFoto = uploadFile($file['fileFoto']);
+                
+
+                    if(is_array($nomeFoto))
+                    {
+                        //caso aconteça algum erro no processo do upload a funtion 
+                        //ira retornar um array com a possivel mensagem de erro esse 
+                        //array será retornado para a router e ela ira inserir para o usuario
+                        return $nomeFoto;
+                    }
+                   
                 }
                 //o if a cima e para fotos
 
@@ -35,7 +48,8 @@
                     "telefone"  => $dadosContato["txtTelefone"],
                     "celular"   => $dadosContato["txtCelular"],
                     "email"     => $dadosContato["txtEmail"],
-                    "obs"       => $dadosContato["txtObs"]
+                    "obs"       => $dadosContato["txtObs"],
+                    "foto"      => $nomeFoto
                 );
 
                 // Import do arquivo da modelagem para manipular o BB
