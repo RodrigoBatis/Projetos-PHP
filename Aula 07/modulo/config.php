@@ -1,12 +1,11 @@
 <?php
-  /*
-    objetivo:
-     arquivo responsável pela criação de váriáveis e constantes do projeto
-    data:
-     05/04
-    Autor:
-      Rogger
-  */
+    /***************************************************************************
+     * Objetivo: arquivo responsável pela criação de váriáveis e constantes do projeto
+     * Autor: Rodrigo
+     * Data: 25/04/2022
+     * Versão: 1.0 
+     * 
+     **************************************************************************/
 
   //limitado a 5mb para upload de imagens
   const MAX_FILE_UPLOAD = 5120;

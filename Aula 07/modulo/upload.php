@@ -1,12 +1,12 @@
 <?php
-  /*
-    objetivo:
-     arquivo responsável em realizar uploaads de arquivos 
-    data:
-     05/04
-    Autor:
-      Rogger
-  */
+
+    /***************************************************************************
+     * Objetivo: arquivo responsável em realizar uploaads de arquivos 
+     * Autor: Rodrigo
+     * Data: 25/04/2022
+     * Versão: 1.0 
+     * 
+     **************************************************************************/
 
   /* Fuçõa para relizar uploads de imagens */
   function uploadFile($arrayFile){
