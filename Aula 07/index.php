@@ -37,14 +37,12 @@
        
         <div id="cadastro"> 
             <div id="cadastroTitulo"> 
-                <h1> Cadastro de Contatos </h1>
-                
+                <h1> Cadastro de Contatos </h1>               
             </div>
+
             <div id="cadastroInformacoes">
-                <!--  enctype="multipart/form-data" essa opção é obrigatoria para enviar aquivos 
-                    do formulario HTML para o servidor.
-                 -->
-                <form  action="<?=$form?>" name="frmCadastro" method="post" enctype="multipart/form-data" >
+                <!--Essa opção é obrigatória para enviar arquivos do formulário em html para o servidor -->
+                <form  action="<?=$form?>" name="frmCadastro" method="post" enctype="multipart/form-data">
                     <div class="campos">
                         <div class="cadastroInformacoesPessoais">
                             <label> Nome: </label>
@@ -80,16 +78,14 @@
                             <input type="email" name="txtEmail" value="<?= isset($email)? $email:null ?>" placeholder="Digite seu email">
                         </div>
                     </div>
-
                     <div class="campos">
                         <div class="cadastroInformacoesPessoais">
-                            <label> Escolha um Arquivo: </label>
+                            <label> Escolha um arquivo: </label>
                         </div>
                         <div class="cadastroEntradaDeDados">
-                            <input type="file" name="fleFoto" accept="jpg, png, jpeg, gif">
+                            <input type="file" name="fileFoto"  accept=".png, .jpg, .svg, .gif, .jpeg">
                         </div>
                     </div>
-
                     <div class="campos">
                         <div class="cadastroInformacoesPessoais">
                             <label> Observações: </label>

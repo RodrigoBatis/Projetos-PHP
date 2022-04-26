@@ -35,14 +35,15 @@
                 // Validação para identificar o tipo de ação que será realizada
                 if($action == "INSERIR")
                 {
-                    if(isset($_FILES) && !empty($_FILES))
-                    {
-                        $resposta = inserirContato($_POST, $_FILES);
-                    }else
-                    {
-                        $resposta = inserirContato($_POST, null);
-                    }
-
+                  if(isset($_FILES) && !empty($_FILES)){
+                    $resposta = inserirContato($_POST, $_FILES);
+                  }else{
+                    $resposta = inserirContato($_POST, null);
+                  }
+                  /*
+                    // chama a função 
+                    $resposta = inserirContato($_POST);
+                  */
                     if(is_bool($resposta))
                     {
                         if($resposta){
