@@ -3,6 +3,8 @@
     //$nome = (String) null;
 
     $form =(String) "router.php?component=contatos&action=inserir";
+    //vareavel para carregar o nome da foto do bd
+    $foto = (String) null;
 
     // valida se a variavel de sessão está ativa
     if(session_status())
@@ -123,13 +125,15 @@
 
                     foreach($listContato as $item)
                     {
+                        //vareavel para carregar a foto que veio do bd
+                        $foto = $item['foto'];
 
                ?>
                 <tr id="tblLinhas">
                     <td class="tblColunas registros"><?= $item['nome']?></td>
                     <td class="tblColunas registros"><?= $item['celular']?></td>
                     <td class="tblColunas registros"><?= $item['email']?></td>
-                    <td class="tblColunas registros"><img src="arquivos/<?= $item['foto']?>" class="foto"></td>
+                    <td class="tblColunas registros"><img src="arquivos/<?=$foto?>" class="foto"></td>
                    
                     <td class="tblColunas registros">
 
@@ -137,7 +141,7 @@
                                 <img src="img/edit.png" alt="Editar" title="Editar" class="editar">
                             </a>
 
-                            <a onclick="return confirm('Tem certeza que quer excluir esse contato?')" href= "router.php?component=contatos&action=deletar&id=<?=$item['id']?>">
+                            <a onclick="return confirm('Tem certeza que quer excluir esse contato?')" href= "router.php?component=contatos&action=deletar&id=<?=$item['id']?>&foto=<?=$foto?>">
                                 <img src="img/trash.png" alt="Excluir" title="Excluir" class="excluir">
                             </a>
 

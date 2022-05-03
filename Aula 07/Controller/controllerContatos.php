@@ -20,7 +20,7 @@
             if(!empty($dadosContato["txtNome"]) && !empty($dadosContato["txtCelular"]) && !empty($dadosContato["txtEmail"]))
             {
                 //validação para identificar se chegou um arquivo para upload
-                if($file != null){
+                if($file['fileFoto']['name'] != null){
                     //import da funtion upload
                     require_once("modulo/upload.php");
                     //chava a funtion de upload
@@ -151,18 +151,43 @@
      }
 
      // função para realizar a exclusão de um contato 
-     function excluirContato($id)
+     function excluirContato($arrayDados)
      {
+         //Recebe o id do registro que será excluido
+         $id = $arrayDados['id'];
+         //Recebe o nome da foto que será excluido da pasta do servidor
+         $foto = $arrayDados['foto'];
+
         // Validação para verificar se contem um numero valido
         if($id != 0 &&  !empty($id) && is_numeric($id))
         {
             // Importe do arquivo de contato
             require_once("model/bd/contato.php");
+            require_once("modulo/config.php");
 
             // Chama a função da model e valida se o retorno foi verdadeiro ou falso
             if(deleteContato($id))
             {
-                return true;
+                //Validação caso a foto não exista no registro
+                if($foto != null){
+
+                    //unlink() - função pra apagar um arquivo de um diretorio
+                    //permite apagar a foto fisicamento do diretorio no servidor
+                
+                    if(unlink(DIRETORIO_FILE_UPLOAD.$foto))
+                    {
+                        return true;
+                    }else
+                    {
+                        return array('idErro' => 5,
+                        'message' => "O registro do Banco de Dados foi excluido com sucesso,
+                                    porem a imagem não foi excluida do diretorio do servidor!");
+                    }
+                }else
+                {
+                    return true;
+                }    
+
             }else
             {
                 return array('idErro' => 3,

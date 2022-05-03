@@ -64,9 +64,17 @@
                     // que foi enviado pela URL no link da imagem 
                     //do excluir que foi acionado na index
                     $idContato = $_GET["id"];
+                    $foto = $_GET["foto"];
+
+                    //criamos um array para encaminhar os valores do id e da foto
+                    //para a controller
+                    $arrayDados = array (
+                        "id"    => $idContato,
+                        "foto"  => $foto
+                    );
 
                     // chama a função de excluir na controller
-                    $resposta = excluirContato($idContato);
+                    $resposta = excluirContato($arrayDados);
 
                     if(is_bool($resposta))
                     {
