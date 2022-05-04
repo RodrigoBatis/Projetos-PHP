@@ -1,5 +1,7 @@
 <?php
 
+    require_once("modulo/config.php");
+
     //$nome = (String) null;
 
     $form =(String) "router.php?component=contatos&action=inserir";
@@ -17,8 +19,9 @@
             $celular    = $_SESSION["dadosContato"]["celular"];
             $email      = $_SESSION["dadosContato"]["email"];
             $obs        = $_SESSION["dadosContato"]["obs"]; 
-
-            $form = "router.php?component=contatos&action=editar&id=".$id;
+            $foto       = $_SESSION["dadosContato"]["foto"]; 
+            //mudamos a ação do form para editar o registro no click do botão salvar
+            $form = "router.php?component=contatos&action=editar&id=".$id."&foto=".$foto;
 
             //destroi uma vareavel da memoria do navegador
             unset($_SESSION["dadosContato"]);
@@ -80,6 +83,7 @@
                             <input type="email" name="txtEmail" value="<?= isset($email)? $email:null ?>" placeholder="Digite seu email">
                         </div>
                     </div>
+
                     <div class="campos">
                         <div class="cadastroInformacoesPessoais">
                             <label> Escolha um arquivo: </label>
@@ -88,6 +92,7 @@
                             <input type="file" name="fileFoto"  accept=".png, .jpg, .svg, .gif, .jpeg">
                         </div>
                     </div>
+
                     <div class="campos">
                         <div class="cadastroInformacoesPessoais">
                             <label> Observações: </label>
@@ -96,6 +101,11 @@
                             <textarea name="txtObs" cols="50" rows="7"><?= isset($obs)? $obs:null ?></textarea>
                         </div>
                     </div>
+
+                    <div class="campos">
+                        <img src="<?=DIRETORIO_FILE_UPLOAD.$foto?>">
+                    </div>
+
                     <div class="enviar">
                         <div class="enviar">
                             <input type="submit" name="btnEnviar" value="Salvar">
@@ -133,7 +143,7 @@
                     <td class="tblColunas registros"><?= $item['nome']?></td>
                     <td class="tblColunas registros"><?= $item['celular']?></td>
                     <td class="tblColunas registros"><?= $item['email']?></td>
-                    <td class="tblColunas registros"><img src="arquivos/<?=$foto?>" class="foto"></td>
+                    <td class="tblColunas registros"><img src="<?=DIRETORIO_FILE_UPLOAD.$foto?>" class="foto"></td>
                    
                     <td class="tblColunas registros">
 

@@ -74,8 +74,15 @@
      }
 
     // função para receber dados da View encaminhar para a model  (Atualizar)
-    function atualizarContato($dadosContato, $id)
+    function atualizarContato($dadosContato, $arrayDados)
      {
+        //recebe o id enviado pelo arrayDados
+        $id = $arrayDados["id"];
+        //recebe a foto enviado pelo arrayDados(Nome da foto que ja existe no BD)
+        $foto = $arrayDados["foto"];
+        //recebe o objeto de array referente a nova foto que podera ser enviada para o sevidor
+        $file = $arrayDados["file"];
+
          // validação para verificar se o objeto está vazio
          if(!empty($dadosContato))
          {
@@ -85,6 +92,19 @@
                  //validação para garantir que o id seja valido
                  if(!empty($id) && $id != 0 && is_numeric($id))
                 {
+                    //Validação para indentificar se será enviado ao servidor uma nova foto
+                    if($file["fileFoto"]["name"] != null)
+                    {
+                        //import da funtion upload
+                        require_once("modulo/upload.php");
+                        //chava a funtion de upload para enviar a nova foto para o servidor
+                        $novaFoto = uploadFile($file['fileFoto']);
+                    }else
+                    {
+                        //permanece a mesma foto no BD
+                        $novaFoto = $foto;
+                    }
+
                     // criação do array de dados que será encaminhado da model 
                     //para enserir no banco de dados, é importante criar esse 
                     //array conforme a nescessidade de manipulação do BD.
@@ -96,7 +116,8 @@
                         "telefone"  => $dadosContato["txtTelefone"],
                         "celular"   => $dadosContato["txtCelular"],
                         "email"     => $dadosContato["txtEmail"],
-                        "obs"       => $dadosContato["txtObs"]
+                        "obs"       => $dadosContato["txtObs"],
+                        "foto"      => $novaFoto
                     );
     
                     // Import do arquivo da modelagem para manipular o BB
@@ -105,6 +126,7 @@
                     // Chama a função que fará o insert no BD(esta função está na model)
                     if(updateContato($arrayDados))
                     {
+                        unlink(DIRETORIO_FILE_UPLOAD.$foto);
                         return true;
                     }else
                     {

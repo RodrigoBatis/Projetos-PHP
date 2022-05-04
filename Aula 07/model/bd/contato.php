@@ -131,7 +131,8 @@
              telefone        = '".$dadosContato["telefone"] ."', 
              celular         = '".$dadosContato["celular"]  ."', 
              email           = '".$dadosContato["email"]    ."', 
-             obs             = '".$dadosContato["obs"]      ."'
+             obs             = '".$dadosContato["obs"]      ."',
+             foto            = '".$dadosContato["foto"]      ."'
              where idContato =  ".$dadosContato["id"]       .";"
          ;  
          
@@ -183,6 +184,7 @@
                     "celular"   => $rsDados["celular"],
                     "email"     => $rsDados["email"],
                     "obs"       => $rsDados["obs"],
+                    "foto"      => $rsDados["foto"],
                 );
             }   
             

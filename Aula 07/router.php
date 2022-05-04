@@ -124,9 +124,18 @@
                 {
                     //recebe o id que foi encaminhado pelo url por via get
                     $idContato = $_GET["id"];
+                    //recebe o nome da foto que foi enviada pelo get do form
+                    $foto      = $_GET["foto"];
+
+                    //cria um array contendo o id e o nome da foto para enviar para a controller
+                    $arrayDados = array(
+                        "id"    => $idContato,
+                        "foto"  => $foto,
+                        "file"  => $_FILES
+                    );
 
                      // chama a função de editar na acontroller
-                     $resposta = atualizarContato($_POST, $idContato);
+                     $resposta = atualizarContato($_POST, $arrayDados);
 
                      if(is_bool($resposta))
                      {
