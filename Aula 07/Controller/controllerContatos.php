@@ -8,6 +8,9 @@
      * Versão: 1.0 
      **************************************************************************/
 
+     //Import do arquivo deconfiguração do projeto
+    require_once("modulo/config.php");
+
      // função para receber dados da View encaminhar para a model 
      function inserirContato($dadosContato, $file)
      {
@@ -17,7 +20,7 @@
         if(!empty($dadosContato))
         {
             //validação de caixa vazia dos lementos nome, celular e email pois são obrigatorios no banco de dados
-            if(!empty($dadosContato["txtNome"]) && !empty($dadosContato["txtCelular"]) && !empty($dadosContato["txtEmail"]))
+            if(!empty($dadosContato["txtNome"]) && !empty($dadosContato["txtCelular"]) && !empty($dadosContato["txtEmail"]) && !empty($dadosContato["sltEstado"]))
             {
                 //validação para identificar se chegou um arquivo para upload
                 if($file['fileFoto']['name'] != null){
@@ -49,7 +52,8 @@
                     "celular"   => $dadosContato["txtCelular"],
                     "email"     => $dadosContato["txtEmail"],
                     "obs"       => $dadosContato["txtObs"],
-                    "foto"      => $nomeFoto
+                    "foto"      => $nomeFoto,
+                    "idEstado"  => $dadosContato["sltEstado"]
                 );
 
                 // Import do arquivo da modelagem para manipular o BB
@@ -76,6 +80,8 @@
     // função para receber dados da View encaminhar para a model  (Atualizar)
     function atualizarContato($dadosContato, $arrayDados)
      {
+        $statusUpload = (boolean) false;
+
         //recebe o id enviado pelo arrayDados
         $id = $arrayDados["id"];
         //recebe a foto enviado pelo arrayDados(Nome da foto que ja existe no BD)
@@ -99,6 +105,7 @@
                         require_once("modulo/upload.php");
                         //chava a funtion de upload para enviar a nova foto para o servidor
                         $novaFoto = uploadFile($file['fileFoto']);
+                        $statusUpload = true;
                     }else
                     {
                         //permanece a mesma foto no BD
@@ -117,7 +124,8 @@
                         "celular"   => $dadosContato["txtCelular"],
                         "email"     => $dadosContato["txtEmail"],
                         "obs"       => $dadosContato["txtObs"],
-                        "foto"      => $novaFoto
+                        "foto"      => $novaFoto,
+                        "idestado"  => $dadosContato["sltEstado"]
                     );
     
                     // Import do arquivo da modelagem para manipular o BB
@@ -126,8 +134,16 @@
                     // Chama a função que fará o insert no BD(esta função está na model)
                     if(updateContato($arrayDados))
                     {
-                        unlink(DIRETORIO_FILE_UPLOAD.$foto);
-                        return true;
+                        //validação para verificar se será nescessario apagar a foto antiga 
+                        //essa vareavel foi ativada em true na linha 105, quando realizamos
+                        //o upload de uma nova foto
+                        if($statusUpload)
+                        {
+                           //Apaga a foto antiga da pasta do servidor
+                            unlink(DIRETORIO_FILE_UPLOAD.$foto);
+                              
+                        }
+                       return true;
                     }else
                     {
                         return array("idErro" => 1, 

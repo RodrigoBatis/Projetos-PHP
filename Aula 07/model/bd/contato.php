@@ -24,14 +24,16 @@
             celular, 
             email, 
             obs,
-            foto)
+            foto,
+            idEstado)
         values(
         '".$dadosContato["nome"]."', 
         '".$dadosContato["telefone"]."',
         '".$dadosContato["celular"]."',
         '".$dadosContato["email"]."',
         '".$dadosContato["obs"]."',
-        '".$dadosContato["foto"]."');";  
+        '".$dadosContato["foto"]."',
+        '".$dadosContato["idEstado"]."');";  
         
         //Executa o script no BD
         //Validação para verificar se o script esta certo
@@ -81,7 +83,8 @@
                     "celular"   => $rsDados["celular"],
                     "email"     => $rsDados["email"],
                     "obs"       => $rsDados["obs"],
-                    "foto"      => $rsDados["foto"]
+                    "foto"      => $rsDados["foto"],
+                    "idestado"  => $rsDados["idestado"]
                 );
                 $cont++;
             }   
@@ -89,7 +92,14 @@
             // solicita o fechamento da conexão com o BD
             fecharConexaoMysql($conexao);
 
-            return $arrayDados;
+            if(empty($arrayDados)){
+                return false;
+            }else
+            {
+                return $arrayDados;
+            }
+
+            
         }
 
     }
@@ -132,12 +142,14 @@
              celular         = '".$dadosContato["celular"]  ."', 
              email           = '".$dadosContato["email"]    ."', 
              obs             = '".$dadosContato["obs"]      ."',
-             foto            = '".$dadosContato["foto"]      ."'
+             foto            = '".$dadosContato["foto"]     ."',
+             idestado        = '".$dadosContato["idestado"] ."'
              where idContato =  ".$dadosContato["id"]       .";"
          ;  
          
          //Executa o script no BD
          //Validação para verificar se o script esta certo
+
          if (mysqli_query($conexao, $sql))
          {
              // Validação para verificar se uma linha foi acrescentada no BD 
@@ -185,6 +197,7 @@
                     "email"     => $rsDados["email"],
                     "obs"       => $rsDados["obs"],
                     "foto"      => $rsDados["foto"],
+                    "idestado"  => $rsDados["idestado"]
                 );
             }   
             

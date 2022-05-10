@@ -7,6 +7,7 @@
     $form =(String) "router.php?component=contatos&action=inserir";
     //vareavel para carregar o nome da foto do bd
     $foto = (String) null;
+    $idestado = (String) null;
 
     // valida se a variavel de sessão está ativa
     if(session_status())
@@ -19,7 +20,8 @@
             $celular    = $_SESSION["dadosContato"]["celular"];
             $email      = $_SESSION["dadosContato"]["email"];
             $obs        = $_SESSION["dadosContato"]["obs"]; 
-            $foto       = $_SESSION["dadosContato"]["foto"]; 
+            $foto       = $_SESSION["dadosContato"]["foto"];
+            $idestado   = $_SESSION["dadosContato"]["idestado"]; 
             //mudamos a ação do form para editar o registro no click do botão salvar
             $form = "router.php?component=contatos&action=editar&id=".$id."&foto=".$foto;
 
@@ -54,6 +56,29 @@
                         </div>
                         <div class="cadastroEntradaDeDados">
                             <input type="text" name="txtNome" value="<?= isset($nome)? $nome:null /*if ternario para tratar vareavel indefinida*/?>" placeholder="Digite seu nome" maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="campos">
+                        <div class="cadastroInformacoesPessoais">
+                            <label> Estado: </label>
+                        </div>
+                        <div class="cadastroEntradaDeDados">
+                            <select name="sltEstado">
+                                <option value="">Selecione um item:</option>
+                                <?php
+                                    //Import a controller de estados
+                                    require_once("controller/controllerEstados.php");
+                                    //Chama a funtion para carregar todos os estados do BD
+                                    $listEstados = listarEstado();
+                                    foreach($listEstados as $item)
+                                    {
+                                        ?>
+                                            <option <?=$idestado == $item['idestado'] ?'selected':null?> value="<?=$item['idestado']?>"><?=$item['nome'] . "  (" . $item['sigla'] . ")"?></option>
+                                        <?php
+                                    }
+                                ?>
+                            </select>
                         </div>
                     </div>
                                      
@@ -133,6 +158,10 @@
                     require_once('Controller/controllerContatos.php');
                     $listContato = listarContato();
 
+                    if(empty($listContato)){
+                        return false;
+                    }else{
+
                     foreach($listContato as $item)
                     {
                         //vareavel para carregar a foto que veio do bd
@@ -161,6 +190,7 @@
 
                 <?php
                  }
+                }
                 ?>
 
             </table>
