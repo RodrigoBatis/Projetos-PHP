@@ -169,7 +169,7 @@
         if($id != 0 &&  !empty($id) && is_numeric($id))
         {
             // Importe do arquivo de contato
-            require_once("model/bd/contato.php");
+            require_once(SRC."model/bd/contato.php");
 
             $dados = selectByidContato($id);
 
