@@ -9,7 +9,7 @@
      **************************************************************************/
 
      //Import do arquivo deconfiguração do projeto
-    require_once("modulo/config.php");
+    require_once(SRC.'modulo/config.php');
 
      // função para receber dados da View encaminhar para a model 
      function inserirContato($dadosContato, $file)
@@ -242,7 +242,7 @@
       // de contatos para View 
       function listarContato()
       {
-        require_once("model/bd/contato.php");
+        require_once(SRC."model/bd/contato.php");
 
         // chama a função que vai buscar os dados no BD
         $dados = selectAllContato();
