@@ -200,8 +200,8 @@
         if($id != 0 &&  !empty($id) && is_numeric($id))
         {
             // Importe do arquivo de contato
-            require_once("model/bd/contato.php");
-            require_once("modulo/config.php");
+            require_once(SRC."model/bd/contato.php");
+            //require_once("modulo/config.php");
 
             // Chama a função da model e valida se o retorno foi verdadeiro ou falso
             if(deleteContato($id))
@@ -212,7 +212,7 @@
                     //unlink() - função pra apagar um arquivo de um diretorio
                     //permite apagar a foto fisicamento do diretorio no servidor
                 
-                    if(unlink(DIRETORIO_FILE_UPLOAD.$foto))
+                    if(unlink(SRC.DIRETORIO_FILE_UPLOAD.$foto))
                     {
                         return true;
                     }else

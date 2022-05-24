@@ -204,7 +204,13 @@
             // solicita o fechamento da conexão com o BD
             fecharConexaoMysql($conexao);
 
-            return $arrayDados;
+            if(empty($arrayDados)){
+                return false;
+            }else
+            {
+                return $arrayDados;
+            }
+            
         }
     }
 
