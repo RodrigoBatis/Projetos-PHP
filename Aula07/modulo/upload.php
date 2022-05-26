@@ -12,7 +12,7 @@
   function uploadFile($arrayFile){
 
     //import de configurações do projeto
-    require_once("modulo/config.php");
+    require_once(SRC."modulo/config.php");
 
     $arquivo = $arrayFile;
     $sizeFile = (int) 0;
@@ -76,7 +76,7 @@
             move_uploaded_file($tempFile, DIRETORIO_FILE_UPLOAD.$foto);
           */
 
-          if(move_uploaded_file($tempFile, DIRETORIO_FILE_UPLOAD.$foto)){
+          if(move_uploaded_file($tempFile, SRC.DIRETORIO_FILE_UPLOAD.$foto)){
             return $foto;
           }else{
             return array(

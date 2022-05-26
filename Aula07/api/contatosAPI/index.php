@@ -148,6 +148,77 @@
   //Endpoint Requisição para inserir um novo contato
   $app->post('/contatos', function($request, $response, $args){
 
+    //Recebe do header a requisição qual será o content type 
+    $contentTypeHeader = $request -> getHeaderLine('Content-Type');
+
+    //Cria um array, pois dependendo do content-Type temos mais informações separadas por (;)
+    $contentType = explode(";", $contentTypeHeader);
+
+    switch($contentType[0])
+    {
+      case 'multipart/form-data':
+
+        //Recebe os dados comuns enviados pelo corpo da requisição
+        $dadosBody = $request->getParsedBody();
+        
+        //Recebe uma imagem enviada pelo corpo da requisição
+        $uploadFiles = $request -> getUploadedFiles();
+
+        $arrayFoto = array  ( "name"      => $uploadFiles["foto"]->getClientFileName(),
+                              "type"      => $uploadFiles["foto"]->getClientMediaType(),
+                              "size"      => $uploadFiles["foto"]->getSize(),
+                              "tmp_name"  => $uploadFiles["foto"]->file
+                            );
+
+        //Cria uma chave chamada foto para colocar todos od dados do objeto, conforme gerado em um form
+        $file = array("foto" => $arrayFoto);
+
+        //Cria um array com todos os dados comuns e do arquivo que será enviado para o servidor
+        $arrayDados = array (
+                              $dadosBody,
+                              "file" => $file
+        );
+
+        require_once('../modulo/config.php');
+        require_once('../Controller/controllerContatos.php');
+
+        $resposta = inserirContato($arrayDados);
+
+        if(is_bool($resposta) && $resposta == true)
+        {
+          return  $response ->withStatus(201)
+                            ->withHeader('Content-Type', 'application/json')
+                            ->write('{"message" : "registro inserido com sucesso"}');
+        }elseif(is_array($resposta) && $resposta['idErro'])
+        {
+          $dadosJSON = createJSON($resposta);
+
+          return  $response ->withStatus(404)
+                              ->withHeader('Content-Type', 'application/json')
+                              ->write('{"message" : "Ouve um problema no processo de inserir",
+                                      "Erro" : '.$dadosJSON.'}');
+        }
+        break;
+
+      case 'application/json':
+
+        $dadosBody = $request->getParsedBody();
+        var_dump($dadosBody);
+        die;
+
+        return  $response ->withStatus(200)
+                          ->withHeader('Content-Type', 'application/json')
+                          ->write('{"message" : "formato selecionado foi JSON"}');
+        break;
+
+      default:
+        return  $response ->withStatus(400)
+                          ->withHeader('Content-Type', 'application/json')
+                          ->write('{"message" : "formato do Content-Type não é valida para esta requisição"}');
+        break;
+    }
+    
+
   });
 
   $app->run();
