@@ -23,7 +23,7 @@
             $file = $dadosContato['file'];
 
             //validação de caixa vazia dos lementos nome, celular e email pois são obrigatorios no banco de dados
-            if(!empty($dadosContato[0]["nome"]) && !empty($dadosContato[0]["celular"]) && !empty($dadosContato[0]["email"]) && !empty($dadosContato["estado"]))
+            if(!empty($dadosContato[0]["nome"]) && !empty($dadosContato[0]["celular"]) && !empty($dadosContato[0]["email"]) && !empty($dadosContato[0]["estado"]))
             {
                 //validação para identificar se chegou um arquivo para upload
                 if($file['foto']['name'] != null){
@@ -81,33 +81,33 @@
      }
 
     // função para receber dados da View encaminhar para a model  (Atualizar)
-    function atualizarContato($dadosContato, $arrayDados)
+     function atualizarContato($dadosContato)
      {
         $statusUpload = (boolean) false;
 
         //recebe o id enviado pelo arrayDados
-        $id = $arrayDados["id"];
+        $id = $dadosContato["id"];
         //recebe a foto enviado pelo arrayDados(Nome da foto que ja existe no BD)
-        $foto = $arrayDados["foto"];
+        $foto = $dadosContato["foto"];
         //recebe o objeto de array referente a nova foto que podera ser enviada para o sevidor
-        $file = $arrayDados["file"];
+        $file = $dadosContato["file"];
 
          // validação para verificar se o objeto está vazio
          if(!empty($dadosContato))
          {
              //validação de caixa vazia dos lementos nome, celular e email pois são obrigatorios no banco de dados
-             if(!empty($dadosContato["txtNome"]) && !empty($dadosContato["txtCelular"]) && !empty($dadosContato["txtEmail"]))
+             if(!empty($dadosContato[0]["nome"]) && !empty($dadosContato[0]["celular"]) && !empty($dadosContato[0]["email"]))
              {
                  //validação para garantir que o id seja valido
                  if(!empty($id) && $id != 0 && is_numeric($id))
                 {
                     //Validação para indentificar se será enviado ao servidor uma nova foto
-                    if($file["fileFoto"]["name"] != null)
+                    if($file["foto"]["name"] != null)
                     {
                         //import da funtion upload
-                        require_once("modulo/upload.php");
+                        require_once(SRC."modulo/upload.php");
                         //chava a funtion de upload para enviar a nova foto para o servidor
-                        $novaFoto = uploadFile($file['fileFoto']);
+                        $novaFoto = uploadFile($file['foto']);
                         $statusUpload = true;
                     }else
                     {
@@ -122,17 +122,17 @@
                     $arrayDados = array 
                     (
                         "id"        => $id,   
-                        "nome"      => $dadosContato["txtNome"],
-                        "telefone"  => $dadosContato["txtTelefone"],
-                        "celular"   => $dadosContato["txtCelular"],
-                        "email"     => $dadosContato["txtEmail"],
-                        "obs"       => $dadosContato["txtObs"],
+                        "nome"      => $dadosContato[0]["nome"],
+                        "telefone"  => $dadosContato[0]["telefone"],
+                        "celular"   => $dadosContato[0]["celular"],
+                        "email"     => $dadosContato[0]["email"],
+                        "obs"       => $dadosContato[0]["obs"],
                         "foto"      => $novaFoto,
-                        "idestado"  => $dadosContato["sltEstado"]
+                        "idestado"  => $dadosContato[0]["estado"]
                     );
     
                     // Import do arquivo da modelagem para manipular o BB
-                    require_once("./model/bd/contato.php");
+                    require_once(SRC."./model/bd/contato.php");
     
                     // Chama a função que fará o insert no BD(esta função está na model)
                     if(updateContato($arrayDados))
@@ -143,7 +143,7 @@
                         if($statusUpload)
                         {
                            //Apaga a foto antiga da pasta do servidor
-                            unlink(DIRETORIO_FILE_UPLOAD.$foto);
+                            unlink(SRC.DIRETORIO_FILE_UPLOAD.$foto);
                               
                         }
                        return true;
