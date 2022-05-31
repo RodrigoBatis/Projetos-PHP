@@ -142,10 +142,11 @@
                         "id"    => $idContato,
                         "foto"  => $foto,
                         "file"  => $_FILES
+                        $_POST
                     );
 
                      // chama a função de editar na acontroller
-                     $resposta = atualizarContato($_POST, $arrayDados);
+                     $resposta = atualizarContato($arrayDados);
 
                      if(is_bool($resposta))
                      {
